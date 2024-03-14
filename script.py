@@ -32,7 +32,7 @@ def scrape_data_point():
             target_element = container_element.find("a", class_="frontpage-link")
             data_point = "" if target_element is None else target_element.text
         else:
-        data_point = ""
+            data_point = ""
        # data_point = "" if target_elements is None else target_elements[36].text
         loguru.logger.info(f"Data point: {data_point}")
         return data_point
