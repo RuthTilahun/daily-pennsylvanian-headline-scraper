@@ -29,6 +29,7 @@ def scrape_data_point():
        # target_elements = soup.find("a", class_="frontpage-link")
         container_element = soup.find("span", id="mostRead")  # Replace "container-id" with the actual ID
         if container_element:
+            loguru.logger.info(f"Container element: {container_element}")
             target_element = container_element.find("a", class_="frontpage-link")
             data_point = "" if target_element is None else target_element.text
         else:
