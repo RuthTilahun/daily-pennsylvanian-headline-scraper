@@ -32,7 +32,7 @@ def scrape_data_point():
        # else:
           #  data_point = ""
         #data_point = "\n".join([elem.text for elem in target_elements])
-        data_point = "" if target_elements is None else target_elements[0].text
+        data_point = "" if target_elements is None else target_elements[36].text
         loguru.logger.info(f"Data point: {data_point}")
         return data_point
 
