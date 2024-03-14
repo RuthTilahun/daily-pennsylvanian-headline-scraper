@@ -26,13 +26,14 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        target_elements = soup.find_all("a", class_="frontpage-link")
-       # if target_elements:
-         #   data_point = target_elements[36].text
-       # else:
-          #  data_point = ""
-        #data_point = "\n".join([elem.text for elem in target_elements])
-        data_point = "" if target_elements is None else target_elements[36].text
+       # target_elements = soup.find("a", class_="frontpage-link")
+        container_element = soup.find(id="mostRead")  # Replace "container-id" with the actual ID
+        if container_element:
+            target_element = container_element.find("a", class_="frontpage-link")
+            data_point = "" if target_element is None else target_element.text
+        else:
+        data_point = ""
+       # data_point = "" if target_elements is None else target_elements[36].text
         loguru.logger.info(f"Data point: {data_point}")
         return data_point
 
