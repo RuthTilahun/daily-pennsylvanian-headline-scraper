@@ -26,8 +26,8 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        top_article = soup.select_one("div.col-sm-5 most-read-item a")
-        article_title = "" if top_article is None else top_article.text
+        multimedia_article = soup.select_one("div.section-multimedia a")
+        article_title = "" if multimedia_article is None else multimedia_article.text
         loguru.logger.info(f"Top article: {article_title}")
         return article_title
     else:
