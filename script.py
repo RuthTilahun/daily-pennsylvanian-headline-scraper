@@ -34,11 +34,9 @@ def scrape_data_point():
             return article_title
         else:
             loguru.logger.info("Most read list not found")
-            return ""
+            return "no data"
            
            
-
-
 if __name__ == "__main__":
 
     # Setup logger to track runtime
