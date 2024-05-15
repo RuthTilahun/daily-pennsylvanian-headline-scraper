@@ -26,17 +26,17 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-       # target_elements = soup.find("a", class_="frontpage-link")
-        container_element = soup.find("span", id="mostRead")  # Replace "container-id" with the actual ID
-        if container_element:
-            loguru.logger.info(f"Container element: {container_element}")
-            target_element = container_element.find("a", class_="frontpage-link")
-            data_point = "" if target_element is None else target_element.text
+        most_read_list = soup.find("div", class_="col-sm-5 most-read-item")
+        if most_read_list:
+            top_article = most_read_list.find("a") #assuming the first link in the list is the top article
+            article_title = top_article.text if top_article else ""
+            loguru.logger.info(f"Top article: {article_title}")
+            return article_title
         else:
-            data_point = "no data"
-       # data_point = "" if target_elements is None else target_elements[36].text
-        loguru.logger.info(f"Data point: {data_point}")
-        return data_point
+            loguru.logger.info("Most read list not found")
+            return ""
+           
+           
 
 
 if __name__ == "__main__":
