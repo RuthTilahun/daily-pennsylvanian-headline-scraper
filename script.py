@@ -28,7 +28,7 @@ def scrape_data_point():
         soup = bs4.BeautifulSoup(req.text, "html.parser")
         most_read_list = soup.find("div", class_="col-sm-5 most-read-item")
         if most_read_list:
-            top_article = most_read_list.find("a") #assuming the first link in the list is the top article
+            top_article = most_read_list.find("a", class_="frontpage-link standard-link") #assuming the first link in the list is the top article
             article_title = top_article.text if top_article else ""
             loguru.logger.info(f"Top article: {article_title}")
             return article_title
