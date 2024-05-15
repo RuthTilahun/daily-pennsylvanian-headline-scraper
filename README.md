@@ -1,3 +1,23 @@
+## My Modified Version 
+Initially, I set out to scrape the #1 most read article because I thought it would be an interesting insight into what people value the most. First, I followed the template and tried the following, making sure that the first link in `most_read_list` is the top article:
+
+```python
+most_read_list = soup.find("div", class_="col-sm-5 most-read-item")  
+if most_read_list:
+    top_article = most_read_list.find("a")
+...
+```
+
+However, this didn't work. So I made sure that the class name was unique and used a CSS selector for more precise targeting as follows:
+
+```python
+top_article = soup.select_one("div.col-sm-5 most-read-item a")
+```
+
+This didn't work either. After using Claude to investigate further, I learned that sometimes what is seen in the developer tools might slightly differ from the source due to JavaScript modifications after the page load. So, I checked the page's source code to find that the most-read stories are displayed by JavaScript code that makes a call to a specific API (https://us-central1-web-services-dp.cloudfunctions.net/dropcap/DP) and dynamically generates HTML content based on the data received. Since this is the case, BeautifulSoup wasn't able to see the content when making a standard request.
+
+Therefore, I decided to scrape the headline on the "Multimedia" page instead, which was straightforward like the main page headline scraping. 
+
 # Basic Git Scraper Template
 
 This template provides a starting point for **git scraping**—the technique of scraping data from websites and automatically committing it to a Git repository using workflows, [coined by Simon Willison](https://simonwillison.net/2020/Oct/9/git-scraping/).
@@ -55,23 +75,6 @@ To adapt this for your own scraping project:
 - Update this `README.md` with project specifics
 
 Feel free to use this as a starter kit for your Python web scraping projects!
-## My Modified Version 
-Initially, I set out to scrape the #1 most read article because I thought it would be an interesting insight into what people value the most. First, I followed the template and tried the following making sure that the first link in `most_read_list` is the top article:
-
-```python
-most_read_list = soup.find("div", class_="col-sm-5 most-read-item")  # Example: div with class 'most-read'
-if most_read_list:
-    top_article = most_read_list.find("a")
-...
-```
-However, this didn't work. So I made sure that the class name was unique and used a CSS selector for more precise targeting as follows:
-
-```python
-top_article = soup.select_one("div.col-sm-5 most-read-item a")
-```
-This didn't work either. After using Claude to investigate further, I learned that sometimes what is seen in the developer tools might slightly differ from the source due to JavaScript modifications after the page load. So, I checked the page's source code to find that the most-read stories are displayed by JavaScript code that makes a call to a specific API (https://us-central1-web-services-dp.cloudfunctions.net/dropcap/DP) and dynamically generates HTML content based on the data received. Since this is the case, BeautifulSoup wasn't able to see the content when making a standard request.
-
-Therefore, I decided to scrape the headline on the "Multimedia" page instead, which was straightforward like the main page headline scraping. 
 
 ## Setting Up a Local Development
 
